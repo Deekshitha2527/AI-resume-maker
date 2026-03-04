@@ -130,7 +130,7 @@ export default function ResumeForm() {
                     <Textarea
                         {...register('projects')}
                         error={errors.projects?.message}
-                        placeholder="Highlight 2-3 key projects you've worked on..."
+                        placeholder="Highlight 2-3 key projects you&apos;ve worked on..."
                         rows={4}
                     />
                 </div>
