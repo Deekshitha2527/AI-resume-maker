@@ -37,8 +37,8 @@ export default function SignupPage() {
 
             toast.success('Check your email for confirmation!');
             setIsSent(true);
-        } catch (error: any) {
-            toast.error(error.message || 'Failed to sign up');
+        } catch (error) {
+            toast.error((error as Error).message || 'Failed to sign up');
         } finally {
             setLoading(false);
         }
