@@ -9,8 +9,6 @@ export const metadata = {
   description: 'AI-powered resume builder for modern professionals.',
 };
 
-import { AuthProvider } from '@/components/AuthProvider';
-
 export default function RootLayout({
   children,
 }: {
@@ -19,10 +17,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <AuthProvider>
-          <Toaster position="top-center" />
-          {children}
-        </AuthProvider>
+        <Toaster position="top-center" />
+        {children}
       </body>
     </html>
   );

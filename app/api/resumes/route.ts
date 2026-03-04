@@ -4,16 +4,11 @@ import { NextResponse } from 'next/server';
 export async function GET() {
     try {
         const supabase = createClient();
-        const { data: { user } } = await supabase.auth.getUser();
 
-        if (!user) {
-            return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-        }
-
+        // Fetch all resumes publicly (since auth is removed)
         const { data: resumes, error } = await supabase
             .from('resumes')
             .select('*')
-            .eq('user_id', user.id)
             .order('created_at', { ascending: false });
 
         if (error) throw error;

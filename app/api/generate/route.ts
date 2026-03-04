@@ -5,12 +5,6 @@ import { ResumeFormData } from '@/types';
 export async function POST(req: Request) {
     try {
         const supabase = createClient();
-        const { data: { user } } = await supabase.auth.getUser();
-
-        if (!user) {
-            return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-        }
-
         const body: ResumeFormData = await req.json();
         const { name, email, phone, summary, skills, experience, education, projects } = body;
 
@@ -48,8 +42,8 @@ export async function POST(req: Request) {
             headers: {
                 'Authorization': `Bearer ${process.env.OPENROUTER_API_KEY}`,
                 'Content-Type': 'application/json',
-                'HTTP-Referer': 'https://github.com/Bytematic/ai-resume-maker', // Optional
-                'X-Title': 'AI Resume Maker', // Optional
+                'HTTP-Referer': 'https://github.com/Bytematic/ai-resume-maker',
+                'X-Title': 'AI Resume Maker',
             },
             body: JSON.stringify({
                 model: 'mistralai/mistral-7b-instruct:free',
@@ -68,11 +62,10 @@ export async function POST(req: Request) {
 
         const generatedResume = data.choices[0].message.content;
 
-        // Save to database
+        // Save to database (publicly)
         const { data: resume, error: dbError } = await supabase
             .from('resumes')
             .insert({
-                user_id: user.id,
                 name: name,
                 email: email,
                 content: generatedResume,

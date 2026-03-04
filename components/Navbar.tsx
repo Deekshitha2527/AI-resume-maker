@@ -1,24 +1,10 @@
 'use client';
 
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import { createClient } from '@/lib/supabase/client';
-import { Button } from './ui/Button';
-import { toast } from 'react-hot-toast';
 
-export default function Navbar({ userEmail }: { userEmail?: string | null }) {
-    const router = useRouter();
-    const supabase = createClient();
-
-    const handleSignOut = async () => {
-        await supabase.auth.signOut();
-        toast.success('Logged out');
-        router.push('/login');
-        router.refresh();
-    };
-
+export default function Navbar() {
     return (
-        <nav className="border-b bg-white">
+        <nav className="border-b bg-white no-print">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between h-16 items-center">
                     <div className="flex items-center">
@@ -33,16 +19,6 @@ export default function Navbar({ userEmail }: { userEmail?: string | null }) {
                                 History
                             </Link>
                         </div>
-                    </div>
-                    <div className="flex items-center space-x-4">
-                        {userEmail && (
-                            <span className="text-sm text-gray-500 mr-2 hidden sm:inline">
-                                {userEmail}
-                            </span>
-                        )}
-                        <Button variant="outline" size="sm" onClick={handleSignOut}>
-                            Sign Out
-                        </Button>
                     </div>
                 </div>
             </div>

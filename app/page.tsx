@@ -1,14 +1,6 @@
-import { createClient } from '@/lib/supabase/server';
-import { redirect } from 'next/navigation';
+import Link from 'next/link';
 
 export default async function HomePage() {
-  const supabase = createClient();
-  const { data: { user } } = await supabase.auth.getUser();
-
-  if (user) {
-    redirect('/builder');
-  }
-
   return (
     <div className="min-h-screen bg-white flex flex-col items-center justify-center p-4">
       <div className="max-w-3xl text-center space-y-8">
@@ -19,18 +11,12 @@ export default async function HomePage() {
           Stop struggling with formatting. Just enter your details, and our AI will generate a tailored, professional resume in seconds.
         </p>
         <div className="flex gap-4 justify-center">
-          <a
-            href="/signup"
-            className="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 transition-colors"
+          <Link
+            href="/builder"
+            className="inline-flex items-center justify-center px-8 py-4 border border-transparent text-lg font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 transition-colors shadow-lg shadow-blue-200"
           >
-            Get Started Free
-          </a>
-          <a
-            href="/login"
-            className="inline-flex items-center justify-center px-6 py-3 border border-gray-300 text-base font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 transition-colors"
-          >
-            Sign In
-          </a>
+            Start Building Your Resume
+          </Link>
         </div>
       </div>
 

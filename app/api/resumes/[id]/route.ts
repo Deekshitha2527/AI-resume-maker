@@ -7,17 +7,11 @@ export async function GET(
 ) {
     try {
         const supabase = createClient();
-        const { data: { user } } = await supabase.auth.getUser();
-
-        if (!user) {
-            return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-        }
 
         const { data: resume, error } = await supabase
             .from('resumes')
             .select('*')
             .eq('id', params.id)
-            .eq('user_id', user.id)
             .single();
 
         if (error) throw error;
@@ -38,17 +32,11 @@ export async function DELETE(
 ) {
     try {
         const supabase = createClient();
-        const { data: { user } } = await supabase.auth.getUser();
-
-        if (!user) {
-            return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-        }
 
         const { error } = await supabase
             .from('resumes')
             .delete()
-            .eq('id', params.id)
-            .eq('user_id', user.id);
+            .eq('id', params.id);
 
         if (error) throw error;
 
