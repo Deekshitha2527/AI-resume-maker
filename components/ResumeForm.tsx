@@ -51,8 +51,8 @@ export default function ResumeForm() {
 
             toast.success('Resume generated successfully!');
             router.push(`/resume/${result.id}`);
-        } catch (error: any) {
-            toast.error(error.message || 'Something went wrong');
+        } catch (error) {
+            toast.error((error as Error).message || 'Something went wrong');
         } finally {
             setLoading(false);
         }

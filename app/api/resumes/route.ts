@@ -19,9 +19,9 @@ export async function GET() {
         if (error) throw error;
 
         return NextResponse.json(resumes);
-    } catch (error: any) {
+    } catch (error) {
         return NextResponse.json(
-            { error: error.message || 'Failed to fetch resumes' },
+            { error: (error as Error).message || 'Failed to fetch resumes' },
             { status: 500 }
         );
     }

@@ -86,10 +86,10 @@ export async function POST(req: Request) {
         }
 
         return NextResponse.json({ id: resume.id });
-    } catch (error: any) {
+    } catch (error) {
         console.error('API Error:', error);
         return NextResponse.json(
-            { error: error.message || 'Internal Server Error' },
+            { error: (error as Error).message || 'Internal Server Error' },
             { status: 500 }
         );
     }

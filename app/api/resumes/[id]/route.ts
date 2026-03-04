@@ -24,9 +24,9 @@ export async function GET(
         if (!resume) return NextResponse.json({ error: 'Not found' }, { status: 404 });
 
         return NextResponse.json(resume);
-    } catch (error: any) {
+    } catch (error) {
         return NextResponse.json(
-            { error: error.message || 'Failed to fetch resume' },
+            { error: (error as Error).message || 'Failed to fetch resume' },
             { status: 500 }
         );
     }
@@ -53,9 +53,9 @@ export async function DELETE(
         if (error) throw error;
 
         return NextResponse.json({ success: true });
-    } catch (error: any) {
+    } catch (error) {
         return NextResponse.json(
-            { error: error.message || 'Failed to delete resume' },
+            { error: (error as Error).message || 'Failed to delete resume' },
             { status: 500 }
         );
     }

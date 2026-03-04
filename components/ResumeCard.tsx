@@ -28,8 +28,8 @@ export default function ResumeCard({ resume, onDelete }: ResumeCardProps) {
 
             toast.success('Resume deleted');
             onDelete(resume.id);
-        } catch (error: any) {
-            toast.error(error.message);
+        } catch (error) {
+            toast.error((error as Error).message);
         } finally {
             setIsDeleting(false);
         }
