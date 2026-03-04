@@ -20,8 +20,8 @@ export default function ResumePage({ params }: { params: { id: string } }) {
                 }
                 const data = await response.json();
                 setResume(data);
-            } catch (err: any) {
-                setError(err.message);
+            } catch (err) {
+                setError((err as Error).message);
             } finally {
                 setLoading(false);
             }
