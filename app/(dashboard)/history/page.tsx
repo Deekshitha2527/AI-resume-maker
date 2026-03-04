@@ -63,7 +63,7 @@ export default function HistoryPage() {
                     </div>
                     <h2 className="text-xl font-semibold text-gray-900">No resumes yet</h2>
                     <p className="text-gray-500 mt-2 max-w-sm mx-auto">
-                        You haven't generated any resumes. Start by filling out the builder form.
+                        You haven&apos;t generated any resumes. Start by filling out the builder form.
                     </p>
                     <div className="mt-6">
                         <Link href="/builder">
