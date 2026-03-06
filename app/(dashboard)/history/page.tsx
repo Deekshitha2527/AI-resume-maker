@@ -16,7 +16,7 @@ export default function HistoryPage() {
             const response = await fetch('/api/resumes');
             if (response.ok) {
                 const data = await response.json();
-                setResumes(data);
+                setResumes(data.resumes || []);
             }
         } catch (error) {
             console.error('Failed to fetch resumes', error);

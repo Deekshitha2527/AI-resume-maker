@@ -15,11 +15,12 @@ export default function ResumePage({ params }: { params: { id: string } }) {
         const fetchResume = async () => {
             try {
                 const response = await fetch(`/api/resumes/${params.id}`);
-                if (!response.ok) {
-                    throw new Error('Resume not found or unauthorized');
-                }
                 const data = await response.json();
-                setResume(data);
+                if (data.resume) {
+                    setResume(data.resume);
+                } else {
+                    throw new Error('Resume data format error');
+                }
             } catch (err) {
                 setError((err as Error).message);
             } finally {

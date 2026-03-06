@@ -1,9 +1,15 @@
 "use client";
 
 import { useResumeContext } from "../builder/ResumeContext";
+import { ResumeContent } from "@/types";
 
-export default function ResumePreview() {
-    const { data } = useResumeContext();
+interface ResumePreviewProps {
+    content?: ResumeContent;
+}
+
+export default function ResumePreview({ content }: ResumePreviewProps) {
+    const { data: contextData } = useResumeContext();
+    const data = content || contextData;
     const { templateId = 'modern' } = data;
 
     // Helper to render sections based on layout
