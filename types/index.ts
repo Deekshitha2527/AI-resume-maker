@@ -1,24 +1,67 @@
-export interface ResumeFormData {
-  name: string;
+export interface PersonalInfo {
+  fullName: string;
   email: string;
   phone: string;
+  location: string;
+  website?: string;
+  linkedin?: string;
+  github?: string;
+}
+
+export interface Experience {
+  id: string;
+  company: string;
+  position: string;
+  startDate: string;
+  endDate: string;
+  current: boolean;
+  location?: string;
+  description: string; // Raw input
+  enhancedDescription?: string; // AI generated
+}
+
+export interface Education {
+  id: string;
+  institution: string;
+  degree: string;
+  fieldOfStudy: string;
+  startDate: string;
+  endDate: string;
+  current: boolean;
+  gpa?: string;
+}
+
+export interface Skill {
+  id: string;
+  name: string;
+  level?: 'Beginner' | 'Intermediate' | 'Advanced' | 'Expert';
+}
+
+export interface Project {
+  id: string;
+  name: string;
+  description: string;
+  url?: string;
+  technologies: string[];
+}
+
+export interface ResumeContent {
+  templateId?: string;
+  personalInfo: PersonalInfo;
   summary: string;
-  skills: string;
-  experience: string;
-  education: string;
-  projects: string;
+  experience: Experience[];
+  education: Education[];
+  skills: Skill[];
+  projects: Project[];
 }
 
 export interface Resume {
   id: string;
-  user_id?: string;
-  name: string;
-  email: string;
-  content: string;
+  user_id: string;
+  title: string;
+  target_job_description?: string;
+  strength_score?: number;
+  content: ResumeContent;
   created_at: string;
-}
-
-export interface ApiResponse<T = unknown> {
-  data?: T;
-  error?: string;
+  updated_at: string;
 }
