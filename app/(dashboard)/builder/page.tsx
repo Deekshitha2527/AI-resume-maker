@@ -2,16 +2,15 @@
 
 import ResumeForm from "@/components/builder/ResumeForm";
 import ResumePreview from "@/components/preview/ResumePreview";
-import { useState, useRef } from "react";
+import { useState, useRef, Suspense, useEffect } from "react";
 import { Button } from "@/components/ui/Button";
 import { Download, Sparkles, Save } from "lucide-react";
 import generatePDF from "react-to-pdf";
 import { useResumeContext } from "@/components/builder/ResumeContext";
 import toast from "react-hot-toast";
 import { useSearchParams } from "next/navigation";
-import { useEffect } from "react";
 
-export default function BuilderPage() {
+function BuilderContent() {
     const [activeTab, setActiveTab] = useState<'edit' | 'preview'>('edit');
     const targetRef = useRef<HTMLDivElement>(null);
     const { data, setTemplateId } = useResumeContext();
@@ -112,5 +111,17 @@ export default function BuilderPage() {
             </div>
 
         </div>
+    );
+}
+
+export default function BuilderPage() {
+    return (
+        <Suspense fallback={
+            <div className="flex items-center justify-center min-h-screen">
+                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+            </div>
+        }>
+            <BuilderContent />
+        </Suspense>
     );
 }
