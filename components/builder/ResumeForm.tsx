@@ -45,7 +45,7 @@ export default function ResumeForm() {
             } else {
                 throw new Error("Invalid response format");
             }
-        } catch (error) {
+        } catch {
             toast.error("Failed to enhance summary. Please try again.");
         } finally {
             setLoadingSummary(false);

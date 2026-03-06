@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { FileText, BarChart, Settings, Plus, User } from "lucide-react";
+import { FileText, Plus } from "lucide-react";
 import { ResumeProvider } from "@/components/builder/ResumeContext";
 
 export default function DashboardLayout({

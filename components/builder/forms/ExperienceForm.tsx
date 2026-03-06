@@ -61,7 +61,7 @@ export default function ExperienceForm() {
             } else {
                 throw new Error("Invalid response format");
             }
-        } catch (error) {
+        } catch {
             toast.error("Failed to enhance experience. Please try again.");
         } finally {
             setLoadingId(null);
@@ -77,7 +77,7 @@ export default function ExperienceForm() {
                 </Button>
             </div>
 
-            {data.experience.map((exp: Experience, index: number) => (
+            {data.experience.map((exp: Experience) => (
                 <div key={exp.id} className="p-4 border border-gray-200 rounded-lg bg-gray-50 space-y-4 relative group">
                     <Button
                         variant="ghost"

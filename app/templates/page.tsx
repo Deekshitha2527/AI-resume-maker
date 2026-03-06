@@ -2,7 +2,7 @@
 
 import { FadeIn, SlideIn } from "@/components/ui/Animations";
 import { Button } from "@/components/ui/Button";
-import { CheckCircle2, ChevronRight, Layout } from "lucide-react";
+import { ChevronRight, Layout } from "lucide-react";
 import Link from "next/link";
 
 const TEMPLATES = [
@@ -109,9 +109,9 @@ export default function TemplatesPage() {
             <div className="mt-24 bg-gradient-to-r from-blue-600 to-indigo-700 rounded-3xl p-12 text-center text-white relative overflow-hidden">
                 <div className="relative z-10">
                     <Layout className="w-16 h-16 mx-auto mb-6 opacity-80" />
-                    <h2 className="text-3xl font-bold mb-4">Haven't found the right one?</h2>
+                    <h2 className="text-3xl font-bold mb-4">Haven&apos;t found the right one?</h2>
                     <p className="text-blue-100 max-w-xl mx-auto mb-8">
-                        Don't worry, even our simplest templates are optimized for maximum visibility. Our AI does the heavy lifting regardless of layout.
+                        Don&apos;t worry, even our simplest templates are optimized for maximum visibility. Our AI does the heavy lifting regardless of layout.
                     </p>
                     <Link href="/builder">
                         <Button size="lg" className="bg-white text-blue-600 hover:bg-blue-50 px-8 rounded-full font-bold">

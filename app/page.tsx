@@ -1,7 +1,7 @@
 "use client";
 
 import Link from 'next/link';
-import { ArrowRight, Sparkles, FileText, CheckCircle2, Zap, Layout, BarChart, ShieldCheck } from 'lucide-react';
+import { ArrowRight, Sparkles, FileText, ShieldCheck, Zap } from 'lucide-react';
 import { FadeIn, SlideIn } from '@/components/ui/Animations';
 import { Button } from '@/components/ui/Button';
 
@@ -32,7 +32,7 @@ export default function HomePage() {
 
           <FadeIn delay={0.2}>
             <p className="mt-8 text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed font-medium">
-              Join 50,000+ professionals using the world's most advanced AI Resume Builder. Optimized for ATS, designed for recruiters, and built for results.
+              Join 50,000+ professionals using the world&apos;s most advanced AI Resume Builder. Optimized for ATS, designed for recruiters, and built for results.
             </p>
           </FadeIn>
 
@@ -111,9 +111,3 @@ export default function HomePage() {
     </div>
   );
 }
-
-const ChevronRight = ({ className }: { className?: string }) => (
-  <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-  </svg>
-);
