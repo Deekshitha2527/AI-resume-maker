@@ -1,128 +1,153 @@
 "use client";
 
-import { FadeIn, SlideIn } from "@/components/ui/Animations";
-import { Button } from "@/components/ui/Button";
-import { ChevronRight, Layout } from "lucide-react";
-import Link from "next/link";
+import { useState } from "react";
+import { motion } from "framer-motion";
+import { Search, SlidersHorizontal, Sparkles } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { TEMPLATES } from "@/lib/templates-config";
+import { SAMPLE_RESUME_DATA } from "@/lib/sample-data";
+import TemplateCard from "@/components/templates/TemplateCard";
+import TemplatePreviewModal from "@/components/templates/TemplatePreviewModal";
 
-const TEMPLATES = [
-    {
-        id: "modern",
-        name: "Modern Executive",
-        description: "High-impact design for senior management and leadership roles.",
-        image: "https://images.unsplash.com/photo-1586281380349-632531db7ed4?auto=format&fit=crop&q=80&w=400",
-        tags: ["Executive", "Corporate", "ATS-Friendly"],
-    },
-    {
-        id: "tech-spec",
-        name: "Tech Specialist",
-        description: "Optimized for developers and engineers, highlighting tech stacks and projects.",
-        image: "https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&q=80&w=400",
-        tags: ["Software", "Projects", "Modern"],
-    },
-    {
-        id: "creative",
-        name: "Creative Visionary",
-        description: "Bold aesthetics for designers, artists, and marketing strategists.",
-        image: "https://images.unsplash.com/photo-1586282391129-59a998bd1160?auto=format&fit=crop&q=80&w=400",
-        tags: ["Visual", "Portfolio", "Dynamic"],
-    },
-    {
-        id: "retail-pro",
-        name: "Customer Service Pro",
-        description: "Perfect for retail, hospitality, and front-of-house professionals.",
-        image: "https://images.unsplash.com/photo-1556740738-b6a63e27c4df?auto=format&fit=crop&q=80&w=400",
-        tags: ["Service", "Reliable", "Skills"],
-    },
-    {
-        id: "finance",
-        name: "Finance & Analytics",
-        description: "Traditional and precise design for accounting and data professionals.",
-        image: "https://images.unsplash.com/photo-1454165833762-01d0bf7e7a0e?auto=format&fit=crop&q=80&w=400",
-        tags: ["Precise", "Formal", "Data"],
-    },
-    {
-        id: "minimal",
-        name: "Minimalist Scholar",
-        description: "Elegant, whitespace-focused layout for academic and entry-level roles.",
-        image: "https://images.unsplash.com/photo-1512485694743-9c9538b4e6e0?auto=format&fit=crop&q=80&w=400",
-        tags: ["Simple", "Academic", "Clean"],
-    },
-];
+const CATEGORIES = ["All", "Modern", "Creative", "Professional", "Minimal", "Tech", "Executive"];
 
 export default function TemplatesPage() {
+    const router = useRouter();
+    const [searchQuery, setSearchQuery] = useState("");
+    const [selectedCategory, setSelectedCategory] = useState("All");
+    const [previewTemplate, setPreviewTemplate] = useState<{ id: string; name: string } | null>(null);
+
+    const filteredTemplates = TEMPLATES.filter((template) => {
+        const matchesSearch = template.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            template.description.toLowerCase().includes(searchQuery.toLowerCase());
+        const matchesCategory = selectedCategory === "All" ||
+            template.tags.some(tag => tag === selectedCategory);
+        return matchesSearch && matchesCategory;
+    });
+
+    const handleSelectTemplate = (id: string) => {
+        router.push(`/builder?template=${id}`);
+    };
+
+    const handlePreviewTemplate = (id: string) => {
+        const template = TEMPLATES.find(t => t.id === id);
+        if (template) {
+            setPreviewTemplate({ id: template.id, name: template.name });
+        }
+    };
+
     return (
-        <div className="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-            <div className="text-center mb-16">
-                <FadeIn>
-                    <div className="inline-flex items-center rounded-full px-3 py-1 text-sm font-semibold text-blue-600 bg-blue-100 ring-1 ring-inset ring-blue-600/20 mb-6 uppercase tracking-wider">
-                        Premium Layouts
-                    </div>
-                </FadeIn>
-                <SlideIn direction="up" delay={0.1}>
-                    <h1 className="text-4xl font-extrabold text-gray-900 sm:text-6xl mb-6">
-                        Choose Your <span className="text-blue-600">Winning Template</span>
-                    </h1>
-                </SlideIn>
-                <FadeIn delay={0.2}>
-                    <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-                        All our templates are tested against major ATS systems to ensure your resume gets seen by human recruiters.
-                    </p>
-                </FadeIn>
-            </div>
+        <div className="min-h-screen bg-[#F9FAFB] pb-20">
+            {/* Hero Section */}
+            <div className="bg-white border-b border-gray-100">
+                <div className="max-w-7xl mx-auto px-6 py-16 text-center">
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-50 text-blue-600 text-sm font-bold mb-6"
+                    >
+                        <Sparkles size={16} />
+                        10+ Professional Templates
+                    </motion.div>
+                    <motion.h1
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.1 }}
+                        className="text-5xl font-black text-gray-900 mb-6 tracking-tight"
+                    >
+                        Choose your perfect <span className="text-blue-600">template</span>
+                    </motion.h1>
+                    <motion.p
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.2 }}
+                        className="text-xl text-gray-500 max-w-2xl mx-auto mb-12 font-medium"
+                    >
+                        Elevate your career with our professionally designed, ATS-optimized resume templates.
+                        Choose a style that reflects your professional brand.
+                    </motion.p>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {TEMPLATES.map((template, index) => (
-                    <FadeIn key={template.id} delay={0.1 * index}>
-                        <div className="group relative bg-white rounded-3xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2">
-                            <div className="aspect-[3/4] overflow-hidden bg-gray-100">
-                                <img
-                                    src={template.image}
-                                    alt={template.name}
-                                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                                />
-                                <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-transparent to-transparent opacity-0 group-hover:opacity-60 transition-opacity duration-300 flex items-end p-8">
-                                    <Link href={`/builder?template=${template.id}`} className="w-full">
-                                        <Button className="w-full bg-white text-gray-900 hover:bg-gray-100 font-bold">
-                                            Use This Template
-                                        </Button>
-                                    </Link>
-                                </div>
-                            </div>
-                            <div className="p-6">
-                                <div className="flex flex-wrap gap-2 mb-4">
-                                    {template.tags.map(tag => (
-                                        <span key={tag} className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 bg-gray-100 text-gray-600 rounded-full border border-gray-200">
-                                            {tag}
-                                        </span>
-                                    ))}
-                                </div>
-                                <h3 className="text-xl font-bold text-gray-900 mb-2">{template.name}</h3>
-                                <p className="text-gray-500 text-sm">{template.description}</p>
-                            </div>
+                    {/* Search & Filter Bar */}
+                    <motion.div
+                        initial={{ opacity: 0, scale: 0.95 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ delay: 0.3 }}
+                        className="max-w-4xl mx-auto flex flex-col md:flex-row gap-4 p-2 bg-white rounded-[2rem] shadow-xl border border-gray-100"
+                    >
+                        <div className="flex-1 relative flex items-center">
+                            <Search className="absolute left-6 text-gray-400" size={20} />
+                            <input
+                                type="text"
+                                placeholder="Search templates (e.g. Modern, Minimal, Tech)..."
+                                value={searchQuery}
+                                onChange={(e) => setSearchQuery(e.target.value)}
+                                className="w-full pl-14 pr-6 py-4 rounded-full bg-gray-50 text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 transition-all font-medium"
+                            />
                         </div>
-                    </FadeIn>
-                ))}
+                        <div className="flex items-center gap-2 px-4 border-l border-gray-100">
+                            <SlidersHorizontal className="text-gray-400" size={18} />
+                            <span className="text-sm font-bold text-gray-500 uppercase tracking-widest">Filter</span>
+                        </div>
+                    </motion.div>
+                </div>
             </div>
 
-            {/* CTA Section */}
-            <div className="mt-24 bg-gradient-to-r from-blue-600 to-indigo-700 rounded-3xl p-12 text-center text-white relative overflow-hidden">
-                <div className="relative z-10">
-                    <Layout className="w-16 h-16 mx-auto mb-6 opacity-80" />
-                    <h2 className="text-3xl font-bold mb-4">Haven&apos;t found the right one?</h2>
-                    <p className="text-blue-100 max-w-xl mx-auto mb-8">
-                        Don&apos;t worry, even our simplest templates are optimized for maximum visibility. Our AI does the heavy lifting regardless of layout.
-                    </p>
-                    <Link href="/builder">
-                        <Button size="lg" className="bg-white text-blue-600 hover:bg-blue-50 px-8 rounded-full font-bold">
-                            Start Building Now <ChevronRight className="ml-2 w-4 h-4" />
-                        </Button>
-                    </Link>
+            {/* Categories */}
+            <div className="max-w-7xl mx-auto px-6 py-10">
+                <div className="flex flex-wrap items-center justify-center gap-3">
+                    {CATEGORIES.map((cat) => (
+                        <button
+                            key={cat}
+                            onClick={() => setSelectedCategory(cat)}
+                            className={`px-8 py-3 rounded-full text-sm font-bold transition-all duration-300 ${selectedCategory === cat
+                                ? "bg-gray-900 text-white shadow-lg"
+                                : "bg-white text-gray-500 hover:bg-gray-100 border border-transparent"
+                                }`}
+                        >
+                            {cat}
+                        </button>
+                    ))}
                 </div>
-                {/* Subtle decorative circles */}
-                <div className="absolute -top-24 -right-24 w-64 h-64 bg-white/10 rounded-full blur-3xl"></div>
-                <div className="absolute -bottom-24 -left-24 w-64 h-64 bg-blue-400/20 rounded-full blur-3xl"></div>
             </div>
+
+            {/* Gallery Grid */}
+            <div className="max-w-7xl mx-auto px-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+                    {filteredTemplates.map((template) => (
+                        <TemplateCard
+                            key={template.id}
+                            id={template.id}
+                            name={template.name}
+                            description={template.description}
+                            image={template.image}
+                            onPreview={handlePreviewTemplate}
+                            onSelect={handleSelectTemplate}
+                        />
+                    ))}
+                </div>
+
+                {filteredTemplates.length === 0 && (
+                    <div className="text-center py-20 bg-white rounded-3xl border-2 border-dashed border-gray-100">
+                        <p className="text-gray-400 text-lg font-medium">No templates found matching your search.</p>
+                        <button
+                            onClick={() => { setSearchQuery(""); setSelectedCategory("All"); }}
+                            className="mt-4 text-blue-600 font-bold hover:underline"
+                        >
+                            Clear all filters
+                        </button>
+                    </div>
+                )}
+            </div>
+
+            {/* Preview Modal */}
+            <TemplatePreviewModal
+                isOpen={!!previewTemplate}
+                onClose={() => setPreviewTemplate(null)}
+                templateId={previewTemplate?.id || ""}
+                templateName={previewTemplate?.name || ""}
+                data={SAMPLE_RESUME_DATA}
+                onSelect={handleSelectTemplate}
+            />
         </div>
     );
 }

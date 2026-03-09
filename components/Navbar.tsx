@@ -12,6 +12,9 @@ export default function Navbar() {
                             Resume AI
                         </Link>
                         <div className="ml-10 flex items-baseline space-x-4">
+                            <Link href="/templates" className="text-gray-600 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium">
+                                Templates
+                            </Link>
                             <Link href="/builder" className="text-gray-600 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium">
                                 Create New
                             </Link>
